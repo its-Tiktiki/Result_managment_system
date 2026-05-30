@@ -1,13 +1,13 @@
 {% extends "base/base.html" %}
-{% block title %}Views principals{% endblock title %}
-
+{% block title %} View for Edit Principal {% endblock title%}
 {% block content %}
+
 <table class="table table-striped">
     <thaed>
         <tr>
             <th>Principal ID</th>
             <th>Name </th>
-            <th>Details</th>
+            <th>Action</th>
         </tr>
     </thaed>
 
@@ -17,7 +17,7 @@
         <tr>
             <td>{{ principal.principal_id }}</td>
             <td>{{ principal.first_name }} {{ principal.last_name }}</td>
-            <td><a class="btn btn-primary btn-sm" href="{{ url_for('admin_dashboard.principal_details',principal_id=principal.principal_id)}}">View</a></td>
+            <td><a class="btn btn-primary btn-sm" href="{{ url_for('admin_dashboard.edit_principal', principal_id=principal.principal_id) }}">Edit</a></td>
         <tr>
         {% endfor %}
     </tbody>

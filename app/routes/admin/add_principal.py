@@ -26,6 +26,7 @@ def add_principal():
         email = principal_data_form.email.data
         institute = principal_data_form.institute.data
         institute_code = principal_data_form.institute_code.data
+        username = principal_data_form.username.data
         password = principal_data_form.password.data    
 
         principal_data_info = PrincipalDataInfo(
@@ -36,6 +37,7 @@ def add_principal():
             email=email,
             institute=institute,
             institute_code=institute_code,
+            username=username,
             password=password
         )
 

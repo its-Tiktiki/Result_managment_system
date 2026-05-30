@@ -45,6 +45,11 @@
         </div>
 
         <div class="mb-3">
+            {{ principal_data_form.username.label(class="form-label") }}
+            {{ principal_data_form.username(class="form-control",placeholder="Enter username")}}
+        </div>
+
+        <div class="mb-3">
             {{ principal_data_form.password.label(class="form-label") }}
             {{ principal_data_form.password(class="form-control",placeholder="Enter principal password") }}
         </div>

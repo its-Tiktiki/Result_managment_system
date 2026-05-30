@@ -96,7 +96,15 @@ class PrincipalDataForm(FlaskForm):
             Length(min=1, max=20)
         ]
     )
-
+    
+    username = StringField(
+        "Enter username",
+        validators=[
+            DataRequired(),
+            Length(min=6,max=120)
+        ]
+    )
+    
     password = PasswordField(
         "Enter a Strong Password",
         validators=[

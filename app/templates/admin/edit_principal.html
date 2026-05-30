@@ -1,0 +1,44 @@
+{% extends "base/base.html"%}
+{% block title %} Edit principal {% endblock %}
+{% block content %}
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.principal_id.label(class="form-label")}}
+        {{ form.principal_id(class="form-control")}}
+    </div>
+
+    <div class="mb-3">
+        {{ form.first_name.label(class="form-label")}}
+        {{ form.first_name(class="form-control")}}
+    </div>
+
+    <div class="mb-3">
+        {{ form.last_name.label(class="form-label")}}
+        {{ form.last_name(class="form-control")}}
+    </div>
+
+    <div class="mb-3">
+        {{ form.mobile_number.label(class="form-label")}}
+        {{ form.mobile_number(class="form-control")}}
+    </div>
+
+    <div class="mb-3">
+        {{ form.email.label(class="form-label")}}
+        {{ form.email(class="form-control")}}
+    </div>
+
+    <div class="mb-3">
+        {{ form.username.label(class="form-label")}}
+        {{ form.username(class="form-control")}}
+    </div>
+
+    <div class="mb-3">
+        {{ form.password.label(class="form-label")}}
+        {{ form.password(class="form-control")}}
+    </div>
+   <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

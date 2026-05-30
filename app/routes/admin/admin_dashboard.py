@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from app.utils.form import PrincipalDataForm
 from app.models.admin import PrincipalDataInfo
+from app.extensions import db
 
 admin_bp = Blueprint("admin_dashboard",__name__,url_prefix="/admin_dashboard")
 @admin_bp.route("/admin_dashboard",methods=["GET","POST"])
@@ -20,6 +21,9 @@ def admin_dashboard():
     
 @admin_bp.route("/views_principals")
 def view_principals():
+    
+    if not session.get("admin"):
+        return redirect(url_for("auth.login"))
 
     principals = PrincipalDataInfo.query.all()
 
@@ -28,5 +32,57 @@ def view_principals():
         principals = principals
     )
 
+@admin_bp.route("/admin/<int:principal_id>")
+def principal_details(principal_id):
 
+    if not session.get("admin"):
+        return redirect(url_for("auth.login"))
+    
+    principal = PrincipalDataInfo.query.get_or_404(principal_id)
+
+    return render_template(
+        "admin/principal_details.html",
+        principal=principal
+    )
+
+@admin_bp.route("/edit_and_view_principal")
+def edit_and_view_principal():
+    
+    if not session.get("admin"):
+        return redirect(url_for("auth.login"))
+
+    principals = PrincipalDataInfo.query.all()
+
+    return render_template(
+        "admin/edit_and_view_principal.html",
+        principals = principals
+    )
+
+@admin_bp.route("/admin/<int:principal_id>/edit", methods=["GET", "POST"])
+def edit_principal(principal_id):
+    principal = PrincipalDataInfo.query.get_or_404(principal_id)
+    form = PrincipalDataForm(obj=principal)
+    print("EDIT ROUTE CALLED", principal_id)
+
+    if form.validate_on_submit():
+
+        principal.principal_id = form.principal_id.data
+        principal.first_name = form.first_name.data
+        principal.last_name = form.last_name.data
+        principal.mobile_number = form.mobile_number.data
+        principal.email = form.email.data
+        principal.institute = form.institute.data
+        principal.institute_code = form.institute_code.data
+        principal.username = form.username.data
+        principal.password = form.password.data
+
+        db.session.commit()
+
+        flash("Principal information update successfully","sucess")
+        return redirect(url_for("admin_dashboard.admin_dashboard"))
+    
+    return render_template(
+        "admin/edit_principal.html",
+        form=form
+    )
 

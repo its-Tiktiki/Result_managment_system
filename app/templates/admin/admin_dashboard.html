@@ -5,7 +5,7 @@
 <h1> welcome to admin Dashboard</h1>
 <ul>
     <li><a href="{{ url_for('add_principal.add_principal') }}">add principal</a></li>
-    <li><a href="#">edit principal Info</a></li>
+    <li><a href="{{ url_for('admin_dashboard.edit_and_view_principal') }}">edit principal Info</a></li>
     <li><a href="{{ url_for('admin_dashboard.view_principals') }}">Show all principal</a></li>
 </ul>
 

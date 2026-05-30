@@ -1,0 +1,15 @@
+{% extends  "base/base.html" %}
+{% block title %} Principal Details {% endblock title%}
+
+{% block content %}
+<h2>Principal Details </h2>
+
+<p>ID: {{ principal.principal_id }} </p>
+<p>First Name: {{ principal.first_name }} </p>
+<p>Last Name: {{ principal.last_name }} </p>
+<p>Phone: {{ principal.mobile_number }} </p>
+<p>Email: {{ principal.email }} </p>
+<p>Institute: {{ principal.institute}} </p>
+<p>Institute Code: {{ principal.institute_code }} </p>
+
+{% endblock %}

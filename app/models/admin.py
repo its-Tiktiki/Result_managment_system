@@ -1,5 +1,4 @@
 from app.extensions import db
-
 class Admin(db.Model):
     __tablename__ = "admin"
 
@@ -17,5 +16,6 @@ class PrincipalDataInfo(db.Model):
     email = db.Column(db.String(120), nullable=False, unique=True)
     institute = db.Column(db.String(200),nullable=False,unique=True)
     institute_code = db.Column(db.String(30),nullable=False,unique=True)
+    username = db.Column(db.String(120),nullable=False,unique=True)
     password = db.Column(db.String(120), nullable=False)
-
+    
