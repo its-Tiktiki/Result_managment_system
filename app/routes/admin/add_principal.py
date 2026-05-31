@@ -44,6 +44,8 @@ def add_principal():
         db.session.add(principal_data_info)
         db.session.commit()
 
+        flash("Principal added successfully","success")
+
         return redirect(url_for("admin_dashboard.admin_dashboard"))
 
     return render_template(

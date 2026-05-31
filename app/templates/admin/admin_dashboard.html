@@ -1,188 +1,226 @@
 {% extends "base/base.html" %}
-{% block title %}Add Principal{% endblock %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
 
 {% block content %}
 
-<!-- Decorative blobs (reusing dashboard/login pattern) -->
-<div class="decoration-circle decoration-circle-1"></div>
-<div class="decoration-circle decoration-circle-2"></div>
+<!-- Decorative blobs -->
+<div class="dash-blob dash-blob-1"></div>
+<div class="dash-blob dash-blob-2"></div>
 
-<!-- Hero -->
-<section class="login-hero">
-  <div class="hero-content">
-    <h1>Add Principal</h1>
-    <p>Fill in the details below to register a new principal into the system</p>
+<!-- ── TOP HEADER ── -->
+<header class="dash-header">
+  <div class="dash-header-left">
+    <div class="dash-avatar">A</div>
+    <div>
+      <p class="dash-greeting">Good day,</p>
+      <h1 class="dash-title">Admin Dashboard</h1>
+    </div>
   </div>
+  <div class="dash-header-right">
+    <span class="dash-badge">Administrator</span>
+    <a href="{{ url_for('login.logout') }}" class="btn btn-outline btn-sm">Sign out</a>
+  </div>
+</header>
+
+<!-- ── STATS ROW ── -->
+<section class="dash-stats" aria-label="Summary statistics">
+
+  <div class="stat-card stat-primary anim-slide" style="--delay:.05s">
+    <div class="stat-icon">🏫</div>
+    <div class="stat-body">
+      <span class="stat-label">Total Principals</span>
+      <span class="stat-value">{{ total }}</span>
+    </div>
+    <div class="stat-glow"></div>
+  </div>
+
+  <div class="stat-card stat-teal anim-slide" style="--delay:.12s">
+    <div class="stat-icon">👨‍🏫</div>
+    <div class="stat-body">
+      <span class="stat-label">Total Teachers</span>
+      <span class="stat-value">—</span>
+    </div>
+    <div class="stat-glow"></div>
+  </div>
+
+  <div class="stat-card stat-indigo anim-slide" style="--delay:.19s">
+    <div class="stat-icon">🎓</div>
+    <div class="stat-body">
+      <span class="stat-label">Total Students</span>
+      <span class="stat-value">—</span>
+    </div>
+    <div class="stat-glow"></div>
+  </div>
+
+  <div class="stat-card stat-amber anim-slide" style="--delay:.26s">
+    <div class="stat-icon">📋</div>
+    <div class="stat-body">
+      <span class="stat-label">Pending Results</span>
+      <span class="stat-value">—</span>
+    </div>
+    <div class="stat-glow"></div>
+  </div>
+
 </section>
 
-<!-- Form Card — reuses .login-card + .card + .card-header classes -->
-<div class="container">
-  <div class="login-card card" style="max-width:680px; margin-left:auto; margin-right:auto;">
+<!-- ── MAIN GRID ── -->
+<div class="dash-grid">
 
-    <!-- Card Header -->
-    <div class="card-header">
-      <h2 class="card-title">Principal Registration</h2>
-      <p class="card-description">All fields marked <span class="required-asterisk">*</span> are required</p>
+  <!-- Quick Actions -->
+  <section class="dash-panel anim-slide" style="--delay:.33s" aria-label="Quick actions">
+    <div class="panel-header">
+      <h2 class="panel-title">Quick Actions</h2>
+      <span class="panel-chip">Management</span>
     </div>
 
-    <!-- Form -->
-    <form method="POST" class="login-form">
-      {{ principal_data_form.hidden_tag() }}
+    <nav class="action-list" aria-label="Dashboard navigation">
 
-      <!-- ── ROW 1: Principal ID ── -->
-      <div class="form-group">
-        {{ principal_data_form.principal_id.label(class="form-label") }}
-        <span class="required-asterisk">*</span>
-        {{ principal_data_form.principal_id(class="form-control", placeholder="Enter principal ID") }}
-        {% if principal_data_form.principal_id.errors %}
-          {% for e in principal_data_form.principal_id.errors %}
-            <small class="form-error">{{ e }}</small>
-          {% endfor %}
-        {% endif %}
+      <a href="{{ url_for('add_principal.add_principal') }}" class="action-item action-blue">
+        <span class="action-icon-wrap">➕</span>
+        <div class="action-text">
+          <span class="action-name">Add Principal</span>
+          <span class="action-desc">Register a new principal to the system</span>
+        </div>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="{{ url_for('admin_dashboard.edit_and_view_principal') }}" class="action-item action-teal">
+        <span class="action-icon-wrap">✏️</span>
+        <div class="action-text">
+          <span class="action-name">Edit Principal Info</span>
+          <span class="action-desc">Modify existing principal details</span>
+        </div>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="{{ url_for('admin_dashboard.view_principals') }}" class="action-item action-indigo">
+        <span class="action-icon-wrap">📋</span>
+        <div class="action-text">
+          <span class="action-name">All Principals</span>
+          <span class="action-desc">View and manage all principals</span>
+        </div>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="#" class="action-item action-purple">
+        <span class="action-icon-wrap">👨‍🏫</span>
+        <div class="action-text">
+          <span class="action-name">All Teachers</span>
+          <span class="action-desc">Browse the complete teacher roster</span>
+        </div>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="#" class="action-item action-amber">
+        <span class="action-icon-wrap">🎓</span>
+        <div class="action-text">
+          <span class="action-name">All Students</span>
+          <span class="action-desc">Manage the full student directory</span>
+        </div>
+        <span class="action-arrow">→</span>
+      </a>
+
+    </nav>
+  </section>
+
+  <!-- System Overview Panel -->
+  <aside class="dash-side" aria-label="System overview">
+
+    <!-- System Health -->
+    <div class="dash-panel anim-slide" style="--delay:.38s">
+      <div class="panel-header">
+        <h2 class="panel-title">System Health</h2>
+        <span class="health-dot"></span>
       </div>
+      <ul class="health-list">
+        <li class="health-item">
+          <span>Database</span>
+          <span class="health-tag tag-ok">Online</span>
+        </li>
+        <li class="health-item">
+          <span>Auth Service</span>
+          <span class="health-tag tag-ok">Active</span>
+        </li>
+        <li class="health-item">
+          <span>Result Engine</span>
+          <span class="health-tag tag-warn">Idle</span>
+        </li>
+        <li class="health-item">
+          <span>Notifications</span>
+          <span class="health-tag tag-ok">Running</span>
+        </li>
+      </ul>
+    </div>
 
-      <!-- ── ROW 2: First + Last Name (Bootstrap grid) ── -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.first_name.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.first_name(class="form-control", placeholder="First name") }}
-            {% if principal_data_form.first_name.errors %}
-              {% for e in principal_data_form.first_name.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.last_name.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.last_name(class="form-control", placeholder="Last name") }}
-            {% if principal_data_form.last_name.errors %}
-              {% for e in principal_data_form.last_name.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
-          </div>
-        </div>
+    <!-- Recent Activity -->
+    <div class="dash-panel anim-slide" style="--delay:.44s">
+      <div class="panel-header">
+        <h2 class="panel-title">Recent Activity</h2>
       </div>
-
-      <!-- ── ROW 3: Mobile + Email ── -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.mobile_number.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.mobile_number(class="form-control", placeholder="Mobile number") }}
-            {% if principal_data_form.mobile_number.errors %}
-              {% for e in principal_data_form.mobile_number.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
+      <ul class="activity-list">
+        <li class="activity-item">
+          <span class="activity-dot dot-blue"></span>
+          <div>
+            <p class="activity-text">Admin logged in</p>
+            <p class="activity-time">Just now</p>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.email.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.email(class="form-control", placeholder="Email address") }}
-            {% if principal_data_form.email.errors %}
-              {% for e in principal_data_form.email.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
+        </li>
+        <li class="activity-item">
+          <span class="activity-dot dot-teal"></span>
+          <div>
+            <p class="activity-text">Principal record updated</p>
+            <p class="activity-time">2 hours ago</p>
           </div>
-        </div>
-      </div>
-
-      <!-- ── ROW 4: Institute + Institute Code ── -->
-      <div class="row g-3">
-        <div class="col-md-7">
-          <div class="form-group">
-            {{ principal_data_form.institute.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.institute(class="form-control", placeholder="Institute name") }}
-            {% if principal_data_form.institute.errors %}
-              {% for e in principal_data_form.institute.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
+        </li>
+        <li class="activity-item">
+          <span class="activity-dot dot-amber"></span>
+          <div>
+            <p class="activity-text">New result published</p>
+            <p class="activity-time">Yesterday</p>
           </div>
-        </div>
-        <div class="col-md-5">
-          <div class="form-group">
-            {{ principal_data_form.institute_code.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.institute_code(class="form-control", placeholder="Code") }}
-            {% if principal_data_form.institute_code.errors %}
-              {% for e in principal_data_form.institute_code.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
+        </li>
+        <li class="activity-item">
+          <span class="activity-dot dot-indigo"></span>
+          <div>
+            <p class="activity-text">Student batch imported</p>
+            <p class="activity-time">3 days ago</p>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
+    </div>
 
-      <!-- Divider -->
-      <div style="border-top: 1px solid var(--border-light); margin: var(--spacing-sm) 0;"></div>
-      <p class="card-description" style="margin-bottom:0; font-weight:600; color:var(--text-dark);">
-        Account Credentials
-      </p>
+    <!-- Help card -->
+    <div class="help-card anim-slide" style="--delay:.5s">
+      <p class="help-label">Need help?</p>
+      <p class="help-sub">View the full documentation or contact system support.</p>
+      <a href="#" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Documentation</a>
+    </div>
 
-      <!-- ── ROW 5: Username ── -->
-      <div class="form-group">
-        {{ principal_data_form.username.label(class="form-label") }}
-        <span class="required-asterisk">*</span>
-        {{ principal_data_form.username(class="form-control", placeholder="Choose a username") }}
-        {% if principal_data_form.username.errors %}
-          {% for e in principal_data_form.username.errors %}
-            <small class="form-error">{{ e }}</small>
-          {% endfor %}
-        {% endif %}
-      </div>
-
-      <!-- ── ROW 6: Password + Retype ── -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.password.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.password(class="form-control", placeholder="Set password") }}
-            {% if principal_data_form.password.errors %}
-              {% for e in principal_data_form.password.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.retype_password.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.retype_password(class="form-control", placeholder="Confirm password") }}
-            {% if principal_data_form.retype_password.errors %}
-              {% for e in principal_data_form.retype_password.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
-            {% endif %}
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Submit ── -->
-      {{ principal_data_form.submit(class="btn btn-primary login-btn") }}
-
-      <!-- Back link -->
-      <div class="login-footer" style="border-top:none; padding-top: var(--spacing-sm); margin-top:0;">
-        <a href="{{ url_for('admin_dashboard.admin_dashboard') }}" class="btn-link">
-          ← Back to Dashboard
-        </a>
-      </div>
-
-    </form>
-  </div>
+  </aside>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Staggered entrance via Intersection Observer
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.anim-slide');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(el => io.observe(el));
+  });
+</script>
 {% endblock %}

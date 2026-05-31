@@ -1,188 +1,208 @@
 {% extends "base/base.html" %}
 {% block title %}Add Principal{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_principal.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<!-- Decorative blobs (reusing dashboard/login pattern) -->
-<div class="decoration-circle decoration-circle-1"></div>
-<div class="decoration-circle decoration-circle-2"></div>
+<!-- Decorative blobs -->
+<div class="ap-blob ap-blob-1"></div>
+<div class="ap-blob ap-blob-2"></div>
 
-<!-- Hero -->
-<section class="login-hero">
-  <div class="hero-content">
-    <h1>Add Principal</h1>
-    <p>Fill in the details below to register a new principal into the system</p>
+<!-- Page Hero -->
+<section class="ap-hero">
+  <div class="ap-hero-inner">
+    <div class="ap-hero-icon">🏫</div>
+    <div>
+      <h1 class="ap-hero-title">Add New Principal</h1>
+      <p class="ap-hero-sub">Fill in the details below to register a principal to the system</p>
+    </div>
   </div>
+  <a href="{{ url_for('admin_dashboard.admin_dashboard') }}" class="btn btn-outline btn-sm ap-back-btn">
+    ← Back to Dashboard
+  </a>
 </section>
 
-<!-- Form Card — reuses .login-card + .card + .card-header classes -->
-<div class="container">
-  <div class="login-card card" style="max-width:680px;">
+<!-- Form Card -->
+<div class="ap-wrapper">
+  <div class="ap-card">
 
     <!-- Card Header -->
-    <div class="card-header">
-      <h2 class="card-title">Principal Registration</h2>
-      <p class="card-description">All fields marked <span class="required-asterisk">*</span> are required</p>
+    <div class="ap-card-header">
+      <h2 class="ap-card-title">Principal Registration Form</h2>
+      <p class="ap-card-desc">All fields marked <span class="req">*</span> are required</p>
     </div>
 
-    <!-- Form -->
-    <form method="POST" class="login-form">
+    <form method="POST" class="ap-form" novalidate>
       {{ principal_data_form.hidden_tag() }}
 
-      <!-- ── ROW 1: Principal ID ── -->
-      <div class="form-group">
-        {{ principal_data_form.principal_id.label(class="form-label") }}
-        <span class="required-asterisk">*</span>
-        {{ principal_data_form.principal_id(class="form-control", placeholder="Enter principal ID") }}
-        {% if principal_data_form.principal_id.errors %}
-          {% for e in principal_data_form.principal_id.errors %}
-            <small class="form-error">{{ e }}</small>
-          {% endfor %}
-        {% endif %}
-      </div>
+      <!-- ── SECTION: Identity ── -->
+      <div class="ap-section">
+        <h3 class="ap-section-title">
+          <span class="ap-section-num">01</span> Identity Information
+        </h3>
+        <div class="ap-grid-2">
 
-      <!-- ── ROW 2: First + Last Name (Bootstrap grid) ── -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.first_name.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.first_name(class="form-control", placeholder="First name") }}
+          <div class="ap-field">
+            {{ principal_data_form.principal_id.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.principal_id(class="ap-input", placeholder="e.g. PRC-2024-001") }}
+            {% if principal_data_form.principal_id.errors %}
+              <span class="ap-error">{{ principal_data_form.principal_id.errors[0] }}</span>
+            {% endif %}
+          </div>
+
+          <div class="ap-field">
+            {{ principal_data_form.first_name.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.first_name(class="ap-input", placeholder="Enter first name") }}
             {% if principal_data_form.first_name.errors %}
-              {% for e in principal_data_form.first_name.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.first_name.errors[0] }}</span>
             {% endif %}
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.last_name.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.last_name(class="form-control", placeholder="Last name") }}
+
+          <div class="ap-field">
+            {{ principal_data_form.last_name.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.last_name(class="ap-input", placeholder="Enter last name") }}
             {% if principal_data_form.last_name.errors %}
-              {% for e in principal_data_form.last_name.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.last_name.errors[0] }}</span>
             {% endif %}
           </div>
-        </div>
-      </div>
 
-      <!-- ── ROW 3: Mobile + Email ── -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.mobile_number.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.mobile_number(class="form-control", placeholder="Mobile number") }}
+          <div class="ap-field">
+            {{ principal_data_form.mobile_number.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.mobile_number(class="ap-input", placeholder="e.g. 01XXXXXXXXX") }}
             {% if principal_data_form.mobile_number.errors %}
-              {% for e in principal_data_form.mobile_number.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.mobile_number.errors[0] }}</span>
             {% endif %}
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.email.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.email(class="form-control", placeholder="Email address") }}
+
+          <div class="ap-field ap-field-full">
+            {{ principal_data_form.email.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.email(class="ap-input", placeholder="principal@school.edu") }}
             {% if principal_data_form.email.errors %}
-              {% for e in principal_data_form.email.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.email.errors[0] }}</span>
             {% endif %}
           </div>
+
         </div>
       </div>
 
-      <!-- ── ROW 4: Institute + Institute Code ── -->
-      <div class="row g-3">
-        <div class="col-md-7">
-          <div class="form-group">
-            {{ principal_data_form.institute.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.institute(class="form-control", placeholder="Institute name") }}
+      <!-- ── SECTION: Institute ── -->
+      <div class="ap-section">
+        <h3 class="ap-section-title">
+          <span class="ap-section-num">02</span> Institute Details
+        </h3>
+        <div class="ap-grid-2">
+
+          <div class="ap-field ap-field-full">
+            {{ principal_data_form.institute.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.institute(class="ap-input", placeholder="Full institute name") }}
             {% if principal_data_form.institute.errors %}
-              {% for e in principal_data_form.institute.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.institute.errors[0] }}</span>
             {% endif %}
           </div>
-        </div>
-        <div class="col-md-5">
-          <div class="form-group">
-            {{ principal_data_form.institute_code.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.institute_code(class="form-control", placeholder="Code") }}
+
+          <div class="ap-field">
+            {{ principal_data_form.institute_code.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.institute_code(class="ap-input", placeholder="e.g. INST-001") }}
             {% if principal_data_form.institute_code.errors %}
-              {% for e in principal_data_form.institute_code.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.institute_code.errors[0] }}</span>
             {% endif %}
           </div>
+
         </div>
       </div>
 
-      <!-- Divider -->
-      <div style="border-top: 1px solid var(--border-light); margin: var(--spacing-sm) 0;"></div>
-      <p class="card-description" style="margin-bottom:0; font-weight:600; color:var(--text-dark);">
-        Account Credentials
-      </p>
+      <!-- ── SECTION: Account Credentials ── -->
+      <div class="ap-section">
+        <h3 class="ap-section-title">
+          <span class="ap-section-num">03</span> Account Credentials
+        </h3>
+        <div class="ap-grid-2">
 
-      <!-- ── ROW 5: Username ── -->
-      <div class="form-group">
-        {{ principal_data_form.username.label(class="form-label") }}
-        <span class="required-asterisk">*</span>
-        {{ principal_data_form.username(class="form-control", placeholder="Choose a username") }}
-        {% if principal_data_form.username.errors %}
-          {% for e in principal_data_form.username.errors %}
-            <small class="form-error">{{ e }}</small>
-          {% endfor %}
-        {% endif %}
-      </div>
+          <div class="ap-field ap-field-full">
+            {{ principal_data_form.username.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.username(class="ap-input", placeholder="Choose a username") }}
+            {% if principal_data_form.username.errors %}
+              <span class="ap-error">{{ principal_data_form.username.errors[0] }}</span>
+            {% endif %}
+          </div>
 
-      <!-- ── ROW 6: Password + Retype ── -->
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.password.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.password(class="form-control", placeholder="Set password") }}
+          <div class="ap-field">
+            {{ principal_data_form.password.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.password(class="ap-input", placeholder="Create a strong password") }}
             {% if principal_data_form.password.errors %}
-              {% for e in principal_data_form.password.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.password.errors[0] }}</span>
             {% endif %}
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            {{ principal_data_form.retype_password.label(class="form-label") }}
-            <span class="required-asterisk">*</span>
-            {{ principal_data_form.retype_password(class="form-control", placeholder="Confirm password") }}
+
+          <div class="ap-field">
+            {{ principal_data_form.retype_password.label(class="ap-label") }}
+            <span class="req">*</span>
+            {{ principal_data_form.retype_password(class="ap-input", placeholder="Repeat the password") }}
             {% if principal_data_form.retype_password.errors %}
-              {% for e in principal_data_form.retype_password.errors %}
-                <small class="form-error">{{ e }}</small>
-              {% endfor %}
+              <span class="ap-error">{{ principal_data_form.retype_password.errors[0] }}</span>
             {% endif %}
           </div>
+
         </div>
       </div>
 
-      <!-- ── Submit ── -->
-      {{ principal_data_form.submit(class="btn btn-primary login-btn") }}
-
-      <!-- Back link -->
-      <div class="login-footer" style="border-top:none; padding-top: var(--spacing-sm); margin-top:0;">
-        <a href="{{ url_for('admin_dashboard.admin_dashboard') }}" class="btn-link">
-          ← Back to Dashboard
+      <!-- ── Actions ── -->
+      <div class="ap-actions">
+        <a href="{{ url_for('admin_dashboard.admin_dashboard') }}" class="btn btn-secondary">
+          Cancel
         </a>
+        {{ principal_data_form.submit(class="btn btn-primary ap-submit") }}
       </div>
 
     </form>
   </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Animate card in
+  const card = document.querySelector('.ap-card');
+  if (card) {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(28px)';
+    requestAnimationFrame(() => {
+      card.style.transition = 'opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1)';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    });
+  }
+
+  // Live validation highlight
+  document.querySelectorAll('.ap-input').forEach(input => {
+    input.addEventListener('blur', () => {
+      if (input.value.trim() === '') {
+        input.classList.add('ap-input-error');
+      } else {
+        input.classList.remove('ap-input-error');
+        input.classList.add('ap-input-ok');
+      }
+    });
+    input.addEventListener('focus', () => {
+      input.classList.remove('ap-input-error');
+    });
+  });
+});
+</script>
 {% endblock %}
