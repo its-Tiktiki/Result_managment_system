@@ -15,7 +15,7 @@ def add_principal():
     principal_data_form = PrincipalDataForm()
 
     if not session.get("admin"):
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("login.login"))
 
     if principal_data_form.validate_on_submit():
 

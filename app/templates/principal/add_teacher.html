@@ -1,0 +1,61 @@
+{% extends "base/base.html" %}
+{% block title %} Add teacher {% endblock %}
+{% block content %}
+
+<div class="card form-box">
+
+    <form method="POST">
+        {{ add_teacher_form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ add_teacher_form.teacher_id.label(class="ap-label")}}
+            {{ add_teacher_form.teacher_id(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.first_name.label(class="ap-label")}}
+            {{ add_teacher_form.first_name(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.last_name.label(class="ap-label")}}
+            {{ add_teacher_form.last_name(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.institute.label(class="ap-label")}}
+            {{ add_teacher_form.institute(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.institute_code.label(class="ap-label")}}
+            {{ add_teacher_form.institute_code(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.phone.label(class="ap-label")}}
+            {{ add_teacher_form.phone(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.email.label(class="ap-label")}}
+            {{ add_teacher_form.email(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.username.label(class="ap-label")}}
+            {{ add_teacher_form.username(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.password.label(class="ap-label")}}
+            {{ add_teacher_form.password(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ add_teacher_form.retype_password .label(class="ap-label")}}
+            {{ add_teacher_form.retype_password (class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ add_teacher_form.submit() }}
+            
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock %}

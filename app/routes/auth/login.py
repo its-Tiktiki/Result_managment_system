@@ -25,7 +25,7 @@ def login():
             password=password
         ).first()
 
-        if admin:
+        if username == DEFUALT_USERNAME and password == DEFUALT_PASSWORD:
             session["admin"] = True
             flash("Admin login successful!", "success")
             return redirect(url_for("admin_dashboard.admin_dashboard"))
@@ -38,6 +38,7 @@ def login():
 
         if principal:
             session["principal"] = True
+            session["principal_id"] = principal.principal_id
             session["principal_id"] = principal.principal_id
 
             flash(f"Login successful, welcome {principal.first_name}","success")

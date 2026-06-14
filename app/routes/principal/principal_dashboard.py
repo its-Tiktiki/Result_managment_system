@@ -7,8 +7,15 @@ principal_dashboard_bp = Blueprint("principal_dashboard",__name__,url_prefix="/p
 def principal_dashboard():
     
     if not session.get("principal"):
-        return redirect(url_for('auth.login'))
-    
-    total_teachers = TeacherAddInfo.query.count()
-    
-    return render_template("principal/principal_dashboard.html",total_teachers=total_teachers)
+        return redirect(url_for("login.login"))
+
+    principal_id = session.get("principal_id")
+
+    total_teachers = TeacherAddInfo.query.filter_by(
+        principal_id=principal_id
+    ).count()
+
+    return render_template(
+        "principal/principal_dashboard.html",
+        total_teachers=total_teachers
+    )

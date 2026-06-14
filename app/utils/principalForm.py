@@ -4,12 +4,12 @@ from wtforms.validators import DataRequired,Length,Regexp,EqualTo
 
 class AddTecaherForm(FlaskForm):
     teacher_id = IntegerField(
-        "Enter ID",
+        "Teacher ID",
         validators=[
-            DataRequired(),
-            Length(min=3,max=20)
-        ]
-    )
+            DataRequired()
+            ]
+        )
+    
     first_name = StringField(
         "Enter First name",
         validators=[
@@ -31,22 +31,19 @@ class AddTecaherForm(FlaskForm):
             Length(min=5,max=200)
         ]
     )
-    institute_code = IntegerField(
+    institute_code = StringField(
         "Enter Institute Code",
         validators=[
              DataRequired(),
              Length(min=3,max=20)
         ]
     )
-    phone = IntegerField(
-        "Enter phone",
+    phone = StringField(
+        "Phone Number",
         validators=[
             DataRequired(),
-            Length(min=11,max=11),
-            Regexp(
-                r'^\d{11}$',
-                message="Enter a valid 11-digit phone number"
-            )
+            Length(min=11, max=11),
+            Regexp(r'^\d{11}$')
         ]
     )
     email = StringField(

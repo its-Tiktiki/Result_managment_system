@@ -8,7 +8,7 @@ admin_bp = Blueprint("admin_dashboard",__name__,url_prefix="/admin_dashboard")
 def admin_dashboard():
 
     if not session.get("admin"):
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("login.login"))
     
     principal_data_form = PrincipalDataForm()
     total = PrincipalDataInfo.query.count()
@@ -23,7 +23,7 @@ def admin_dashboard():
 def view_principals():
     
     if not session.get("admin"):
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("login.login"))
 
     principals = PrincipalDataInfo.query.all()
 
@@ -36,7 +36,7 @@ def view_principals():
 def principal_details(principal_id):
 
     if not session.get("admin"):
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("login.login"))
     
     principal = PrincipalDataInfo.query.get_or_404(principal_id)
 
@@ -49,7 +49,7 @@ def principal_details(principal_id):
 def edit_and_view_principal():
     
     if not session.get("admin"):
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("login.login"))
 
     principals = PrincipalDataInfo.query.all()
 
