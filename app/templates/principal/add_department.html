@@ -1,0 +1,22 @@
+{% extends "base/base.html"%}
+{% block title%} Add Department {% endblock %}
+
+{% block content%}
+<div class="form">
+    <h2>Add Department page</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.department_id.label(class="ap-label")}}
+            {{ form.department_id(class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ form.department_name.label(class="ap-label")}}
+            {{ form.department_name(class="form-control")}}
+        </div>
+
+        <div class="mb-3">{{ form.submit() }}</div>
+</div>
+
+{% endblock %}

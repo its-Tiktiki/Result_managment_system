@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+{% block title %}Teacher editing page{% endblock title %}
+
+{% block content %}
+<div class="card ">
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.teacher_id.label(class="ap-label")}}
+            {{ form.teacher_id(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.first_name.label(class="ap-label")}}
+            {{ form.first_name(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.last_name.label(class="ap-label")}}
+            {{ form.last_name(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.institute.label(class="ap-label")}}
+            {{ form.institute(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.institute_code.label(class="ap-label")}}
+            {{ form.institute_code(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.phone.label(class="ap-label")}}
+            {{ form.phone(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.email.label(class="ap-label")}}
+            {{ form.email(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.username.label(class="ap-label")}}
+            {{ form.username(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="ap-label")}}
+            {{ form.password(class="form-control")}}
+        </div>
+        <div class="mb-3">
+            {{ form.retype_password .label(class="ap-label")}}
+            {{ form.retype_password (class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit() }}
+            
+        </div>
+
+    </form>
+
+
+</div>
+
+{% endblock %}

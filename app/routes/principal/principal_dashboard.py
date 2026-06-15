@@ -1,7 +1,7 @@
 from flask import Blueprint,redirect,url_for,render_template,session,flash
 from app.models.principal import TeacherAddInfo
 
-principal_dashboard_bp = Blueprint("principal_dashboard",__name__,url_prefix="/ptincipal_dashboard")
+principal_dashboard_bp = Blueprint("principal_dashboard",__name__,url_prefix="/principal_dashboard")
 @principal_dashboard_bp.route("/")
 
 def principal_dashboard():

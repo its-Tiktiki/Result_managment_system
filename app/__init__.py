@@ -17,6 +17,8 @@ def create_app():
     from .routes.principal.view_teachers import views_teacher_bp 
     from .routes.principal.teacher_details import teacher_details_bp
     from .routes.principal.edit_teacher import edit_tecaher_bp
+    from .routes.principal.assign_subjects import assign_subject_bp 
+    from .routes.principal.assign_subject_dashboard import  assign_subject_dashboard_bp
 
     app.register_blueprint(home_bp) 
     app.register_blueprint(login_bp) 
@@ -27,5 +29,7 @@ def create_app():
     app.register_blueprint(views_teacher_bp) 
     app.register_blueprint(teacher_details_bp) 
     app.register_blueprint(edit_tecaher_bp)
+    app.register_blueprint(assign_subject_bp)
+    app.register_blueprint(assign_subject_dashboard_bp)
     
     return app
