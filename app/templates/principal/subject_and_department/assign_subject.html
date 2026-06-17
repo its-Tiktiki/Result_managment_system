@@ -1,11 +1,10 @@
-{% extends "base/base.html"%}
-{% block title%} Add Subject {% endblock %}
+{% extends "base/base.html" %}
+{% block title %} Assign Subject {% endblock %}
 
 {% block content%}
 <div class="form">
-    <h2>Add Subject page </h2>
+    <h2>Assign Subject page</h2>
     <form method="POST">
-        
         {{ form.hidden_tag() }}
         <div class="mb-3">
             {{ form.department_id.label(class="ap-label")}}
@@ -18,13 +17,8 @@
         </div>
 
         <div class="mb-3">
-            {{ form.subject_code.label(class="ap-label")}}
-            {{ form.subject_code(class="form-control")}}
-        </div>
-
-        <div class="mb-3">
-            {{ form.subject_name.label(class="ap-label")}}
-            {{ form.subject_name(class="form-control")}}
+            {{ form.subject_id.label(class="ap-label")}}
+            {{ form.subject_id(class="form-control")}}
         </div>
 
         <div class="mb-3">{{ form.submit() }}</div>

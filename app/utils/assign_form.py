@@ -2,29 +2,17 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,IntegerField,SelectField,SubmitField
 from wtforms.validators import DataRequired
 
-class DepartmentForm(FlaskForm):
-    department_id = IntegerField(
-        "Department Id",
-        validators=[DataRequired()]
-    )
-    department_name = StringField(
-        "Department Name",
-        validators=[DataRequired()]
-    )
-
-    submit = SubmitField("Save Departmant")
-
-
-class SubjectForm(FlaskForm):
-
+class CurriculamForm(FlaskForm):
     department_id = SelectField(
-        "Department",
-        validators=[DataRequired()],
-        choices=[]
+        "Departments",
+        choices=[],
+        validators=[DataRequired()]
     )
+
     semester = SelectField(
-        "Semister",
+        "semester",
         choices=[
+            ("0","Select"),
             ("1","Semester 1"),
             ("2","Semester 2"),
             ("3","Semester 3"),
@@ -34,14 +22,35 @@ class SubjectForm(FlaskForm):
             ("7","Semester 7"),
         ]
     )
-    subject_code = IntegerField(
-        "Subject code",
+
+    subject_id = SelectField(
+        "Subject",
+        choices=[],
+        coerce=int
+    )
+
+    submit = SubmitField(
+        "Assign Subject"
+    )
+
+class DepartmentForm(FlaskForm):
+    department_id = IntegerField(
+        "Department ID",
+        validators=[DataRequired()]
+    )
+    department_name = StringField(
+        "Department Name",
+        validators=[DataRequired()]
+    )
+
+    submit = SubmitField("Save Department")
+class SubjectForm(FlaskForm):
+    subject_code = StringField(
+        "Subject Code",
         validators=[DataRequired()]
     )
     subject_name = StringField(
         "Subject Name",
         validators=[DataRequired()]
     )
-
-    submit = SubmitField("Save subject")
-
+    submit = SubmitField("Save Subject")

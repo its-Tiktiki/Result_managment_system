@@ -1,0 +1,22 @@
+{% extends "base/base.html"%}
+{% block title%} Assign Subject dashoard {% endblock %}
+{% block content%}
+
+<div class="box box-shadow">
+    <h2> Assign Subject dashoard</h2>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('assign_subject.add_department')}}">Add Department</a></li>
+            <li><a href="{{url_for('assign_subject.add_subject')}}">Add Subject</a></li>
+            <li><a href="{{ url_for('assign_subject.assign_subject')}}">Assign Subject</a></li>
+            <li><a href="{{ url_for('show_subjects.show_subjects')}}">Show Subject</a></li>
+            <li><a href="{{ url_for('show_subjects.show_department')}}">Show Department </a></li>
+        </ul>
+
+    </nav>
+
+    <h3>total subject: {{total_subject}} </h3>
+    <h3>total Department: {{total_department}}</h3>
+</div>
+{% endblock %}

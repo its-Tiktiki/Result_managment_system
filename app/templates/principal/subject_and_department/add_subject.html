@@ -1,0 +1,25 @@
+{% extends "base/base.html"%}
+{% block title%} Add Subject {% endblock %}
+
+{% block content%}
+<div class="form">
+    <h2>Add Subject page </h2>
+    <form method="POST">
+        
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.subject_code.label(class="ap-label")}}
+            {{ form.subject_code(class="form-control")}}
+        </div>
+
+        <div class="mb-3">
+            {{ form.subject_name.label(class="ap-label")}}
+            {{ form.subject_name(class="form-control")}}
+        </div>
+
+        <div class="mb-3 btn">{{ form.submit() }}</div>
+
+    </form>
+</div>
+
+{% endblock %}

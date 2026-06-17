@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+{% block title %} All department {% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>All department</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for department in all_department %}
+
+            <tr>
+                <td>{{ department.department_id}}</td>
+                <td>{{department.department_name}}</td>
+                <td><a href="{{ url_for('assign_subject_dashboard.edit_department',department_id=department.department_id )}}"><button class="btn btn-primary btn-sm">Edit</button></a> <a href="#"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+
+    </table>
+    
+
+</div>
+{% endblock %}
