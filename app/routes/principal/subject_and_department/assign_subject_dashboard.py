@@ -78,10 +78,6 @@ def edit_department(department_id):
     )
 
 
-
-
-
-
 @assign_subject_dashboard_bp.route("/assign/<int:subject_id>/delete", methods=["POST"])
 def delete_subject(subject_id):
     subject= Subjects.query.get_or_404(subject_id)

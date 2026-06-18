@@ -46,4 +46,9 @@ class Curriculum(db.Model):
         ),
         nullable = False 
     )
+
+class AssignTeacher(db.Model):
+    __tablename__ = "assign_teacher"
+    assign_teaher_id = db.Column(db.Integer, primary_key = True, autoincrement=True)
+    
     

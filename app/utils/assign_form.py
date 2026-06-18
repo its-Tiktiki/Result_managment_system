@@ -54,3 +54,7 @@ class SubjectForm(FlaskForm):
         validators=[DataRequired()]
     )
     submit = SubmitField("Save Subject")
+
+
+class AssigTeacher(FlaskForm):
+    pass
