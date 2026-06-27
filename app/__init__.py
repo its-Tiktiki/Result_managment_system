@@ -25,6 +25,7 @@ def create_app():
     from .routes.teacher.teacher_dashboard import teacher_dashboard_bp
     from .routes.teacher.add_student import add_student_bp
     from .routes.teacher.show_student import show_student_bp
+    from .routes.teacher.edit_student import edit_student_bp
 
     app.register_blueprint(home_bp) 
     app.register_blueprint(login_bp) 
@@ -43,5 +44,6 @@ def create_app():
     app.register_blueprint(teacher_dashboard_bp)
     app.register_blueprint(add_student_bp)
     app.register_blueprint(show_student_bp)
+    app.register_blueprint(edit_student_bp)
     
     return app

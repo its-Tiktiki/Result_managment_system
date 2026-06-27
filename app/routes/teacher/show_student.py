@@ -9,6 +9,7 @@ show_student_bp = Blueprint(
     url_prefix="/show_student"
 )
 
+
 @show_student_bp.route("/", methods=["GET", "POST"])
 def show_student():
 
@@ -18,17 +19,14 @@ def show_student():
     form = SelectSemesterAndDepartmentForm()
 
     teacher_id = session.get("teacher_id")
-    principal_id = session.get("temp_principal_id")
+    principal_id = session.get("temp_principal_id")   
 
     departments = Department.query.filter_by(
         principal_id=principal_id
     ).all()
 
     form.department_id.choices = [
-        (
-            d.department_id,
-            f"{d.department_code} - {d.department_name}"
-        )
+        (d.department_id, f"{d.department_code} - {d.department_name}")
         for d in departments
     ]
 
@@ -36,22 +34,14 @@ def show_student():
         teacher_id=teacher_id
     ).all()
 
-    semesters = sorted(
-        list(set([s.semester for s in students]))
-    )
-
-    groups = sorted(
-        list(set([s.group for s in students]))
-    )
-
     form.semester.choices = [
         (s, f"Semester {s}")
-        for s in semesters
+        for s in sorted({x.semester for x in students})
     ]
 
     form.group.choices = [
         (g, g)
-        for g in groups
+        for g in sorted({x.group for x in students if x.group})
     ]
 
     student_data = []

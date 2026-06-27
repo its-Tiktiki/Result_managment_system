@@ -1,0 +1,32 @@
+{% extends "base/base.html" %} {% block title %} Add Student{% endblock %} {%
+block content %}
+
+<div class="card form-box">
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.student_roll.label(class="ap-label")}} {{
+      form.student_roll(class="form-control")}}
+    </div>
+    <div class="mb-3">
+      {{ form.student_full_name.label(class="ap-label")}} {{
+      form.student_full_name(class="form-control")}}
+    </div>
+    <div class="mb-3">
+      {{ form.semester.label(class="ap-label")}} {{
+      form.semester(class="form-control")}}
+    </div>
+    <div class="mb-3">
+      {{ form.department_id.label }} {{
+      form.department_id(class="form-control") }}
+    </div>
+    <div class="mb-3">
+      {{ form.group.label(class="ap-label")}} {{
+      form.group(class="form-control")}}
+    </div>
+    <div class="mb-3">{{ form.submit(class="btn btn-primary") }}</div>
+  </form>
+</div>
+
+{% endblock %}

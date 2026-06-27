@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from app.utils.form import PrincipalDataForm
 from app.models.admin import PrincipalDataInfo
+from app.models.teacher import AddStudentInfo
+from app.models.principal import TeacherAddInfo
 from app.extensions import db
 
 admin_bp = Blueprint("admin_dashboard",__name__,url_prefix="/admin_dashboard")
@@ -11,12 +13,16 @@ def admin_dashboard():
         return redirect(url_for("login.login"))
     
     principal_data_form = PrincipalDataForm()
-    total = PrincipalDataInfo.query.count()
+    total_principal = PrincipalDataInfo.query.count()
+    total_student = AddStudentInfo.query.count()
+    total_teacher = TeacherAddInfo.query.count()
 
     return render_template(
         "admin/admin_dashboard.html",
         principal_data_form=principal_data_form,
-        total=total
+        total_principal=total_principal,
+        total_student=total_student,
+        total_teacher=total_teacher
     )
     
 @admin_bp.route("/views_principals")
