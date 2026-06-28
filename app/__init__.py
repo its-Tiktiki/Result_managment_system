@@ -26,6 +26,9 @@ def create_app():
     from .routes.teacher.add_student import add_student_bp
     from .routes.teacher.show_student import show_student_bp
     from .routes.teacher.edit_student import edit_student_bp
+    from .routes.teacher.attendance import attendance_bp
+    from .routes.teacher.get_marks_system.get_marks import get_marks_bp
+    from .routes.teacher.get_marks_system.get_marks_dashboard import get_marks_dashboard_bp
 
     app.register_blueprint(home_bp) 
     app.register_blueprint(login_bp) 
@@ -45,5 +48,8 @@ def create_app():
     app.register_blueprint(add_student_bp)
     app.register_blueprint(show_student_bp)
     app.register_blueprint(edit_student_bp)
+    app.register_blueprint(attendance_bp)
+    app.register_blueprint(get_marks_dashboard_bp)
+    app.register_blueprint(get_marks_bp)
     
     return app

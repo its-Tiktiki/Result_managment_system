@@ -51,3 +51,22 @@ def edit_student(student_id):
         form=form,
         student_data=student_data
     )
+
+@edit_student_bp.route("/teacher/<int:student_id>/delete", methods=["GET","POST"])
+def delete_student(student_id):
+
+    if not session.get("teacher"):
+        return redirect(url_for("login.login"))
+
+    student = AddStudentInfo.query.get_or_404(student_id)
+
+    try:
+        db.session.delete(student)
+        db.session.commit()
+        flash("Student Deleted Successfully", "success")
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error Deleting Student: {e}", "danger")
+
+    return redirect(url_for("show_student.show_student"))

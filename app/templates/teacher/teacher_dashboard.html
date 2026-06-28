@@ -8,8 +8,8 @@
     <ul class="make_list card box-shadow">
         <li><a href="{{ url_for('add_student.add_student')}}">Add Student</a></li>
         <li><a href="{{ url_for('show_student.show_student')}}">View Students</a></li>
-        <li><a href="#">Get Attendence</a></li>
-        <li><a href="#">Assign Marks</a></li>
+        <li><a href="{{ url_for('attendence.attendance')}}">Get Attendence</a></li>
+        <li><a href="{{ url_for('get_marks_dashboard.get_marks_dashboard')}}">Assign Marks Dashboard</a></li>
     </ul>
     <div class="box">
     <h2>Total Studenta: {{total_student}}</h2>

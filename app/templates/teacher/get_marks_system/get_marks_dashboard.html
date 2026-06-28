@@ -1,0 +1,16 @@
+{% extends "base/base.html"%}
+{% block title %} Get Marks Dashboard {% endblock %}
+{% block content%}
+<div class="box box-shadow">
+    <h2> Assign Subject dashoard</h2>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('get_marks.show_student')}}">Show Student</a></li>
+        </ul>
+
+    </nav>
+</div>
+
+
+{% endblock %}

@@ -25,3 +25,52 @@ class AddStudentInfo(db.Model):
         db.ForeignKey("teacher_info.teacher_id")
     )
 
+class Attendance(db.Model):
+    __tablename__ = "attendance"
+
+    attendance_id = db.Column(
+        db.Integer,
+        primary_key=True,
+        autoincrement=True
+    )
+
+    student_id = db.Column(
+        db.Integer,
+        db.ForeignKey("student_data.student_id"),
+        nullable=False
+    )
+
+    teacher_id = db.Column(
+        db.Integer,
+        db.ForeignKey("teacher_info.teacher_id"),
+        nullable=False
+    )
+
+    attendance_date = db.Column(
+        db.Date,
+        nullable=False
+    )
+
+    status = db.Column(
+        db.String(1),      # P = Present, A = Absent
+        nullable=False
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        default=db.func.now()
+    )
+
+    student = db.relationship(
+        "AddStudentInfo",
+        backref="attendance"
+    )
+
+    __table_args__ = (
+        db.UniqueConstraint(
+            "student_id",
+            "attendance_date",
+            name="unique_student_attendance"
+        ),
+    )
+
