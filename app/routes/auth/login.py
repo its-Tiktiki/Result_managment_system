@@ -50,7 +50,6 @@ def login():
             session["teacher"] = True
             session["teacher_id"] = teacher.teacher_id
             session["temp_principal_id"] = teacher.principal_id
-
             flash("Login successfully", "success")
 
             return redirect(
