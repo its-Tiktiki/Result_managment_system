@@ -15,19 +15,41 @@
 
 <div class="asd-wrap">
 
-<div class="asd-wrap">
-
-  <!-- ── BACK LINK ── -->
-  <a href="{{ url_for('principal_dashboard.principal_dashboard') }}" class="asd-back asd-slide" style="--delay:0s">
-    <span>←</span>
-    <span>Back to Principal Dashboard</span>
-  </a>
-
   <!-- ── HEADER ── -->
   <div class="asd-header asd-slide" style="--delay:.05s">
-    <div class="asd-header-text">
-      <h1 class="asd-title">Assign Subject Dashboard</h1>
-      <p class="asd-sub">Set up departments and subjects, then assign them to teachers.</p>
+    <div class="asd-header-left">
+      <span class="asd-header-icon">📚</span>
+      <div class="asd-header-text">
+        <h1 class="asd-title">Assign Subject Dashboard</h1>
+        <p class="asd-sub">Set up departments and subjects, then assign them to teachers.</p>
+      </div>
+    </div>
+
+    <div class="asd-header-right">
+      <a href="{{ url_for('principal_dashboard.principal_dashboard') }}" class="asd-back">
+        <span>←</span>
+        <span>Dashboard</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── STATS + WORKFLOW RAIL ── -->
+  <div class="asd-stats-row asd-slide" style="--delay:.08s">
+    <div class="asd-rail">
+      <div class="asd-rail-step is-active">
+        <span class="asd-rail-num">1</span>
+        <span>Setup</span>
+      </div>
+      <span class="asd-rail-arrow">→</span>
+      <div class="asd-rail-step">
+        <span class="asd-rail-num">2</span>
+        <span>Assign</span>
+      </div>
+      <span class="asd-rail-arrow">→</span>
+      <div class="asd-rail-step">
+        <span class="asd-rail-num">3</span>
+        <span>Review</span>
+      </div>
     </div>
 
     <div class="asd-chips">
@@ -45,24 +67,6 @@
           <span class="asd-chip-value">{{total_department}}</span>
         </span>
       </div>
-    </div>
-  </div>
-
-  <!-- ── WORKFLOW RAIL ── -->
-  <div class="asd-rail asd-slide" style="--delay:.1s">
-    <div class="asd-rail-step is-active">
-      <span class="asd-rail-num">1</span>
-      <span>Setup</span>
-    </div>
-    <span class="asd-rail-arrow">→</span>
-    <div class="asd-rail-step">
-      <span class="asd-rail-num">2</span>
-      <span>Assign</span>
-    </div>
-    <span class="asd-rail-arrow">→</span>
-    <div class="asd-rail-step">
-      <span class="asd-rail-num">3</span>
-      <span>Review</span>
     </div>
   </div>
 

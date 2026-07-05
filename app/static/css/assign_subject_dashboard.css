@@ -4,7 +4,6 @@
    Uses colors.css variables + styles.css base
    ============================================ */
 
-/* ── BLOBS ────────────────────────────────── */
 .asd-blob {
   position: fixed;
   border-radius: 50%;
@@ -16,7 +15,6 @@
 .asd-blob-1 { width: 420px; height: 420px; background: var(--primary-rgba-10); top: -160px; left: -120px; }
 .asd-blob-2 { width: 320px; height: 320px; background: rgba(139,92,246,.05); bottom: -100px; right: -100px; }
 
-/* ── ANIMATION ────────────────────────────── */
 .asd-slide {
   opacity: 0;
   transform: translateY(18px);
@@ -25,43 +23,66 @@
 }
 .asd-slide.visible { opacity: 1; transform: translateY(0); }
 
-/* ── WRAPPER ──────────────────────────────── */
 .asd-wrap {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
 }
 
-/* ── BACK LINK ────────────────────────────── */
 .asd-back {
   display: inline-flex !important;
   flex-direction: row !important;
   align-items: center;
-  gap: .4rem;
+  gap: .35rem;
   font-size: .82rem;
   font-weight: 600;
   color: var(--medium-gray);
   text-decoration: none;
-  margin-bottom: var(--spacing-md);
+  flex-shrink: 0;
   transition: color var(--transition-fast), transform var(--transition-fast);
 }
 .asd-back:hover { color: var(--primary-color); transform: translateX(-2px); }
 
-/* ── HEADER ───────────────────────────────── */
-/* No hero box, no gradient panel — header sits directly on the page
-   background so it doesn't compete with the title for attention. */
 .asd-header {
   display: flex !important;
   flex-direction: row !important;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--spacing-lg);
   max-width: 1200px;
   margin: 0 auto var(--spacing-lg);
   width: 100%;
-  padding-bottom: var(--spacing-md);
-  border-bottom: 1px solid var(--border-light);
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+.asd-header-left {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: var(--spacing-md);
+  min-width: 0;
+}
+.asd-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.asd-header-right {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: var(--spacing-lg);
+  flex-shrink: 0;
 }
 .asd-header-text { max-width: 55ch; }
 .asd-eyebrow {
@@ -72,11 +93,9 @@
   color: var(--primary-color);
   margin: 0 0 .35rem;
 }
-/* Solid color, not a clipped gradient — one loud element per page is
-   enough, and that's reserved for the active rail step below. */
 .asd-title {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
   font-weight: 800;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -86,16 +105,22 @@
   line-height: 1.15;
 }
 .asd-sub {
-  font-size: .88rem;
+  font-size: .85rem;
   color: var(--medium-gray);
   margin: .35rem 0 0;
   max-width: 46ch;
 }
 
-/* Compact stat chips — flat surface, one accent line, matches the
-   left-border language used on the group cards below so the whole
-   page reads as one system instead of four different devices. */
-.asd-chips { display: flex !important; flex-direction: row !important; gap: var(--spacing-sm); flex-wrap: wrap; margin: 0; }
+.asd-stats-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+.asd-chips { display: flex !important; flex-direction: row !important; gap: .9rem; flex-wrap: wrap; margin: 0; }
 .asd-chip {
   display: flex !important;
   flex-direction: row !important;
@@ -105,6 +130,7 @@
   border: 1px solid var(--border-light);
   border-left: 3px solid var(--primary-color);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   padding: .55rem 1.1rem .55rem .8rem;
   min-width: 140px;
 }
@@ -117,14 +143,12 @@
 .asd-chip-label { font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--medium-gray); display: block; }
 .asd-chip-value { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); display: block; line-height: 1.2; }
 
-/* ── WORKFLOW RAIL ────────────────────────── */
 .asd-rail {
   display: inline-flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   align-items: center;
   gap: 0;
-  margin-bottom: var(--spacing-lg);
   background: var(--white);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-full);
@@ -157,8 +181,6 @@
   color: var(--medium-gray);
   flex-shrink: 0;
 }
-/* One solid accent color here, not a gradient — this is the single
-   spot on the page allowed to be the "loud" element. */
 .asd-rail-step.is-active { color: var(--white); background: var(--primary-color); }
 .asd-rail-step.is-active .asd-rail-num {
   background: rgba(255,255,255,.25);
@@ -167,15 +189,12 @@
 }
 .asd-rail-arrow { color: var(--border-light); font-size: .85rem; flex-shrink: 0; padding: 0 .1rem; }
 
-/* ── GROUPS GRID ──────────────────────────── */
 .asd-groups {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
 }
 
-/* Left-border accent instead of a full-width top bar — quieter, and
-   it's the same device the stat chips use above. */
 .asd-group {
   background: var(--white);
   border: 1px solid var(--border-light);
@@ -201,8 +220,6 @@
   gap: .6rem;
   margin-bottom: var(--spacing-md);
 }
-/* Neutral icon background across all three groups — color is already
-   carried by the border, so the icon chip doesn't need to repeat it. */
 .asd-group-icon {
   width: 34px; height: 34px;
   border-radius: var(--radius-md);
@@ -215,7 +232,6 @@
 .asd-group-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .98rem; color: var(--text-dark); margin: 0; }
 .asd-group-desc  { font-size: .78rem; color: var(--medium-gray); margin: .1rem 0 0; }
 
-/* ── TILE LINKS ───────────────────────────── */
 .asd-tile {
   display: flex !important;
   flex-direction: row !important;
@@ -251,7 +267,6 @@
 .asd-group-assign .asd-tile:hover .asd-tile-arrow { color: #8b5cf6; }
 .asd-group-view   .asd-tile:hover .asd-tile-arrow { color: var(--secondary-dark); }
 
-/* ── RESPONSIVE ───────────────────────────── */
 @media (max-width: 980px) {
   .asd-groups { grid-template-columns: 1fr 1fr; }
 }
