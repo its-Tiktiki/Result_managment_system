@@ -1,5 +1,5 @@
 /* ============================================
-   ASSIGN_SUBJECT.CSS
+   ASSIGN_SUBJECT_DASHBOARD.CSS
    Assign Subject Hub – grouped workflow layout
    Uses colors.css variables + styles.css base
    ============================================ */
@@ -11,9 +11,10 @@
   pointer-events: none;
   z-index: -1;
   filter: blur(90px);
+  opacity: .6;
 }
 .asd-blob-1 { width: 420px; height: 420px; background: var(--primary-rgba-10); top: -160px; left: -120px; }
-.asd-blob-2 { width: 320px; height: 320px; background: rgba(139,92,246,.07); bottom: -100px; right: -100px; }
+.asd-blob-2 { width: 320px; height: 320px; background: rgba(139,92,246,.05); bottom: -100px; right: -100px; }
 
 /* ── ANIMATION ────────────────────────────── */
 .asd-slide {
@@ -47,33 +48,32 @@
 .asd-back:hover { color: var(--primary-color); transform: translateX(-2px); }
 
 /* ── HEADER ───────────────────────────────── */
-.asd-hero {
-  width: 100%;
-  background: linear-gradient(135deg, var(--primary-light) 0%, #eef2ff 100%);
-  border-bottom: 1px solid var(--border-light);
-  padding: var(--spacing-lg) var(--spacing-xl);
-  margin-bottom: var(--spacing-lg);
-}
+/* No hero box, no gradient panel — header sits directly on the page
+   background so it doesn't compete with the title for attention. */
 .asd-header {
   display: flex !important;
   flex-direction: row !important;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--spacing-lg);
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto var(--spacing-lg);
   width: 100%;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
 }
 .asd-header-text { max-width: 55ch; }
 .asd-eyebrow {
-  font-size: .78rem;
+  font-size: .72rem;
   font-weight: 700;
   letter-spacing: .6px;
   text-transform: uppercase;
   color: var(--primary-color);
   margin: 0 0 .35rem;
 }
+/* Solid color, not a clipped gradient — one loud element per page is
+   enough, and that's reserved for the active rail step below. */
 .asd-title {
   font-family: 'Poppins', sans-serif;
   font-size: clamp(1.3rem, 3vw, 1.9rem);
@@ -83,6 +83,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0;
+  line-height: 1.15;
 }
 .asd-sub {
   font-size: .88rem;
@@ -91,40 +92,32 @@
   max-width: 46ch;
 }
 
-/* Compact stat chips (deliberately smaller/quieter than dashboard stat-cards) */
+/* Compact stat chips — flat surface, one accent line, matches the
+   left-border language used on the group cards below so the whole
+   page reads as one system instead of four different devices. */
 .asd-chips { display: flex !important; flex-direction: row !important; gap: var(--spacing-sm); flex-wrap: wrap; margin: 0; }
 .asd-chip {
   display: flex !important;
   flex-direction: row !important;
   align-items: center;
-  gap: .8rem;
-  border-radius: var(--radius-lg);
-  padding: .6rem 1.2rem .6rem .7rem;
-  min-width: 150px;
-}
-.asd-chip-icon {
-  width: 38px; height: 38px;
+  gap: .7rem;
+  background: var(--off-white);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--primary-color);
   border-radius: var(--radius-md);
-  display: flex !important;
-  align-items: center; justify-content: center;
-  font-size: 1.15rem;
-  flex-shrink: 0;
+  padding: .55rem 1.1rem .55rem .8rem;
+  min-width: 140px;
 }
-.asd-chip-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; opacity: .7; display: block; }
-.asd-chip-value { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; display: block; line-height: 1.15; }
-
-.asd-chip-subjects    { background: var(--primary-light); color: var(--primary-color); }
-.asd-chip-subjects    .asd-chip-icon { background: rgba(255,255,255,.6); }
-.asd-chip-subjects    .asd-chip-value { color: var(--primary-color); }
-
-.asd-chip-departments { background: #eef2ff; color: #4f46e5; }
-.asd-chip-departments .asd-chip-icon { background: rgba(255,255,255,.6); }
-.asd-chip-departments .asd-chip-value { color: #4f46e5; }
+.asd-chip-departments { border-left-color: #8b5cf6; }
+.asd-chip-icon {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+  opacity: .85;
+}
+.asd-chip-label { font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--medium-gray); display: block; }
+.asd-chip-value { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); display: block; line-height: 1.2; }
 
 /* ── WORKFLOW RAIL ────────────────────────── */
-/* Single inline-flex pill strip — one flat element, not a loose row of
-   divs — so it can't be knocked into a vertical stack by a generic
-   `div { display:block }` rule elsewhere on the site. */
 .asd-rail {
   display: inline-flex !important;
   flex-direction: row !important;
@@ -135,7 +128,7 @@
   background: var(--white);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-full);
-  padding: .35rem .5rem;
+  padding: .3rem .4rem;
   box-shadow: var(--shadow-sm);
   max-width: 100%;
   overflow-x: auto;
@@ -164,7 +157,9 @@
   color: var(--medium-gray);
   flex-shrink: 0;
 }
-.asd-rail-step.is-active { color: var(--white); background: var(--gradient-primary); }
+/* One solid accent color here, not a gradient — this is the single
+   spot on the page allowed to be the "loud" element. */
+.asd-rail-step.is-active { color: var(--white); background: var(--primary-color); }
 .asd-rail-step.is-active .asd-rail-num {
   background: rgba(255,255,255,.25);
   border-color: transparent;
@@ -179,14 +174,16 @@
   gap: var(--spacing-md);
 }
 
+/* Left-border accent instead of a full-width top bar — quieter, and
+   it's the same device the stat chips use above. */
 .asd-group {
   background: var(--white);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-xl);
+  border-left: 3px solid var(--primary-color);
+  border-radius: var(--radius-lg);
   padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
   box-shadow: var(--shadow-sm);
   position: relative;
-  overflow: hidden;
   transition: transform var(--transition-normal) var(--ease-smooth),
               box-shadow var(--transition-normal) var(--ease-smooth);
 }
@@ -194,15 +191,8 @@
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
 }
-.asd-group::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-}
-.asd-group-setup::before  { background: var(--primary-color); }
-.asd-group-assign::before { background: #8b5cf6; }
-.asd-group-view::before   { background: var(--secondary-dark); }
+.asd-group-assign { border-left-color: #8b5cf6; }
+.asd-group-view   { border-left-color: var(--secondary-dark); }
 
 .asd-group-head {
   display: flex !important;
@@ -211,16 +201,16 @@
   gap: .6rem;
   margin-bottom: var(--spacing-md);
 }
+/* Neutral icon background across all three groups — color is already
+   carried by the border, so the icon chip doesn't need to repeat it. */
 .asd-group-icon {
-  width: 36px; height: 36px;
+  width: 34px; height: 34px;
   border-radius: var(--radius-md);
+  background: var(--off-white);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
 }
-.asd-group-setup  .asd-group-icon { background: var(--primary-light); }
-.asd-group-assign .asd-group-icon { background: #f5f3ff; }
-.asd-group-view   .asd-group-icon { background: var(--secondary-light); }
 
 .asd-group-title { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .98rem; color: var(--text-dark); margin: 0; }
 .asd-group-desc  { font-size: .78rem; color: var(--medium-gray); margin: .1rem 0 0; }
@@ -231,42 +221,41 @@
   flex-direction: row !important;
   align-items: center;
   gap: .75rem;
-  padding: .75rem .9rem;
-  border-radius: var(--radius-lg);
+  padding: .7rem .9rem;
+  border-radius: var(--radius-md);
   text-decoration: none;
   background: var(--off-white);
   border: 1px solid transparent;
   transition: all var(--transition-normal) var(--ease-smooth);
-  margin-bottom: .6rem;
+  margin-bottom: .5rem;
 }
 .asd-tile:last-child { margin-bottom: 0; }
 .asd-tile:hover {
   transform: translateX(3px);
-  box-shadow: var(--shadow-md);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-sm);
 }
-.asd-group-setup  .asd-tile:hover { background: var(--primary-light); border-color: var(--primary-rgba-20); }
-.asd-group-assign .asd-tile:hover { background: #f5f3ff; border-color: rgba(139,92,246,.2); }
-.asd-group-view   .asd-tile:hover { background: var(--secondary-light); border-color: rgba(0,153,204,.2); }
 
 .asd-tile-dot {
-  width: 8px; height: 8px;
+  width: 6px; height: 6px;
   border-radius: 50%;
+  background: var(--primary-color);
   flex-shrink: 0;
 }
-.asd-group-setup  .asd-tile-dot { background: var(--primary-color); }
 .asd-group-assign .asd-tile-dot { background: #8b5cf6; }
 .asd-group-view   .asd-tile-dot { background: var(--secondary-dark); }
 
-.asd-tile-name { flex: 1; font-size: .88rem; font-weight: 600; color: var(--text-dark); }
+.asd-tile-name { flex: 1; font-size: .86rem; font-weight: 600; color: var(--text-dark); }
 .asd-tile-arrow { font-size: 1rem; color: var(--medium-gray); transition: transform var(--transition-normal), color var(--transition-normal); }
 .asd-tile:hover .asd-tile-arrow { transform: translateX(3px); color: var(--primary-color); }
+.asd-group-assign .asd-tile:hover .asd-tile-arrow { color: #8b5cf6; }
+.asd-group-view   .asd-tile:hover .asd-tile-arrow { color: var(--secondary-dark); }
 
 /* ── RESPONSIVE ───────────────────────────── */
 @media (max-width: 980px) {
   .asd-groups { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 680px) {
-  .asd-hero { padding: var(--spacing-md); }
   .asd-wrap { padding: var(--spacing-md); }
   .asd-groups { grid-template-columns: 1fr; }
   .asd-header { align-items: flex-start; }
