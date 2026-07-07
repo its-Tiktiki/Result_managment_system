@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Add Teacher — page styles
+   Uses CSS custom properties so it inherits from colors.css when available.
+   Each var() has a fallback so this file still looks right on its own —
+   swap the fallback values for your real tokens if the names differ.
+   ========================================================================== */
+
+.form-box {
+    max-width: 640px;
+    margin: 2.5rem auto;
+    padding: 2rem 2.25rem;
+    border: none;
+    border-radius: 14px;
+    background: var(--surface, #ffffff);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+.form-box::before {
+    content: "";
+    display: block;
+    height: 4px;
+    width: 64px;
+    margin-bottom: 1.5rem;
+    border-radius: 999px;
+    background: var(--primary, #6c4ce0);
+}
+
+/* Field groups */
+.form-box .mb-3 {
+    margin-bottom: 1.25rem !important;
+}
+
+/* Labels */
+.form-box .ap-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-secondary, #6b7280);
+}
+
+/* Inputs */
+.form-box .form-control {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    color: var(--text-primary, #1f2937);
+    background-color: var(--surface-alt, #f9fafb);
+    border: 1.5px solid var(--border, #e5e7eb);
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.form-box .form-control:hover {
+    border-color: var(--border-hover, #c7c9d1);
+}
+
+.form-box .form-control:focus {
+    outline: none;
+    background-color: var(--surface, #ffffff);
+    border-color: var(--primary, #6c4ce0);
+    box-shadow: 0 0 0 3px var(--primary-soft, rgba(108, 76, 224, 0.15));
+}
+
+/* Invalid state, in case WTForms adds is-invalid on validation errors */
+.form-box .form-control.is-invalid {
+    border-color: var(--danger, #dc2626);
+}
+
+.form-box .invalid-feedback {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--danger, #dc2626);
+}
+
+/* Two-column layout for related fields on wider screens */
+@media (min-width: 640px) {
+    .form-box form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 1.25rem;
+    }
+
+    /* Fields that should span the full width */
+    .form-box form > .mb-3:nth-child(1),  /* teacher_id (hidden_tag is not counted) */
+    .form-box form > .mb-3:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Submit button */
+.form-box .mb-3:last-child {
+    margin-top: 0.5rem;
+}
+
+.form-box input[type="submit"],
+.form-box button[type="submit"] {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary, #6c4ce0);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.form-box input[type="submit"]:hover,
+.form-box button[type="submit"]:hover {
+    background: var(--primary-hover, #5a3dd0);
+}
+
+.form-box input[type="submit"]:active,
+.form-box button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* Small screens: single column, tighter padding */
+@media (max-width: 480px) {
+    .form-box {
+        margin: 1.25rem;
+        padding: 1.5rem 1.25rem;
+    }
+}

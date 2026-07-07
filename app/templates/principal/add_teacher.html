@@ -1,5 +1,10 @@
 {% extends "base/base.html" %}
 {% block title %} Add teacher {% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_teacher.css') }}">
+{% endblock %}
+
 {% block content %}
 
 <div class="card form-box">
@@ -44,18 +49,16 @@
             {{ add_teacher_form.password(class="form-control")}}
         </div>
         <div class="mb-3">
-            {{ add_teacher_form.retype_password .label(class="ap-label")}}
-            {{ add_teacher_form.retype_password (class="form-control")}}
+            {{ add_teacher_form.retype_password.label(class="ap-label")}}
+            {{ add_teacher_form.retype_password(class="form-control")}}
         </div>
 
         <div class="mb-3">
             {{ add_teacher_form.submit() }}
-            
         </div>
 
     </form>
 
 </div>
-
 
 {% endblock %}
