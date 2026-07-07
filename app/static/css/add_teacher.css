@@ -1,23 +1,192 @@
 /* ==========================================================================
-   Add Teacher — page styles (matches the "Add Principal" layout/style)
-   Uses CSS custom properties so it inherits from colors.css when available.
-   Fallback values recreate the blue theme from the reference screenshot.
+   Add Teacher — CSS-only restyle
+   Targets the EXACT existing markup: .card.form-box, .mb-3, .ap-label,
+   .form-control, and the submit input. No HTML/Jinja changes required.
+   Uses CSS variables so it inherits from colors.css when available —
+   swap the fallback values if your token names differ.
    ========================================================================== */
 
-.at-page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1.5rem 1.25rem 3rem;
+.form-box {
+    max-width: 640px;
+    margin: 2.5rem auto;
+    padding: 2rem 2.25rem;
+    border: none;
+    border-radius: 16px;
+    background: var(--surface, #ffffff);
+    box-shadow: 0 10px 30px rgba(20, 40, 90, 0.08);
 }
 
-/* ---------- Header ---------- */
-.at-header {
+.form-box {
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.form-box form {
+    padding: 0 2.25rem;
+}
+
+/* Field groups */
+.form-box .mb-3 {
+    margin-bottom: 1.35rem !important;
+}
+
+/* Labels */
+.form-box .ap-label {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary, #1f2937);
+}
+
+/* Inputs */
+.form-box .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    color: var(--text-primary, #1f2937);
+    background-color: var(--surface-alt, #f7f8fa);
+    border: 1.5px solid var(--border, #e3e6ea);
+    border-radius: 10px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.form-box .form-control::placeholder {
+    color: var(--text-muted, #9aa1ab);
+}
+
+.form-box .form-control:hover {
+    border-color: var(--border-hover, #c7cbd3);
+}
+
+.form-box .form-control:focus {
+    outline: none;
+    background-color: var(--surface, #ffffff);
+    border-color: var(--primary, #1e88e5);
+    box-shadow: 0 0 0 3px var(--primary-soft, rgba(30, 136, 229, 0.15));
+}
+
+/* Invalid state, in case WTForms adds is-invalid on validation errors */
+.form-box .form-control.is-invalid {
+    border-color: var(--danger, #e53935);
+}
+
+.form-box .invalid-feedback {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--danger, #e53935);
+}
+
+/* Two-column layout on wider screens, using field order to decide
+   which fields pair up (no markup/class changes needed). */
+@media (min-width: 640px) {
+    .form-box form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 1.5rem;
+    }
+
+    /* teacher_id (1st field) spans full width */
+    .form-box form > .mb-3:nth-child(2) {
+        grid-column: 1 / -1;
+    }
+
+    /* username (8th field) and the submit row also span full width */
+    .form-box form > .mb-3:nth-child(9),
+    .form-box form > .mb-3:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Footer actions: Cancel + Submit */
+.form-box .form-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.form-box .btn-cancel {
+    padding: 0.75rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-secondary, #4b5563);
+    background: var(--surface-alt, #eceef1);
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.form-box .btn-cancel:hover {
+    background: var(--border, #dfe2e6);
+}
+
+.form-box input[type="submit"].btn-submit,
+.form-box button.btn-submit {
+    padding: 0.75rem 2rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    /* deep blue to bright cyan, solid stops, no washed-out fade */
+    background: linear-gradient(90deg, #0d47f4 0%, #0561e0 35%, #12b7e8 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(13, 71, 244, 0.25);
+    transition: box-shadow 0.15s ease, transform 0.05s ease, filter 0.15s ease;
+}
+
+.form-box input[type="submit"].btn-submit:hover,
+.form-box button.btn-submit:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 6px 14px rgba(13, 71, 244, 0.3);
+}
+
+.form-box .btn-cancel:active,
+.form-box input[type="submit"].btn-submit:active,
+.form-box button.btn-submit:active {
+    transform: translateY(1px);
+}
+
+/* Small screens: single column, tighter padding, full-width button */
+@media (max-width: 639px) {
+    .form-box {
+        margin: 1.25rem;
+        padding: 1.5rem 1.25rem;
+    }
+
+    .form-box .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .form-box .btn-cancel,
+    .form-box input[type="submit"].btn-submit,
+    .form-box button.btn-submit {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   Page header bar (icon + title + subtitle + Back to Dashboard)
+   ========================================================================== */
+
+.at-page-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1.25rem 0.25rem 1.5rem;
-    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto 1rem;
+    flex-wrap: nowrap;
 }
 
 .at-header-left {
@@ -72,36 +241,52 @@
     color: #fff;
 }
 
-/* ---------- Form card ---------- */
-.at-form-card {
-    border: none;
-    border-radius: 16px;
-    background: var(--surface, #ffffff);
-    box-shadow: 0 10px 30px rgba(20, 40, 90, 0.08);
-    padding: 2rem 2.25rem 1.5rem;
-}
+/* ==========================================================================
+   Blue registration banner inside the card
+   ========================================================================== */
 
-/* ---------- Sections ---------- */
-.at-section {
-    padding-bottom: 1.5rem;
+.at-banner {
+    padding: 1.75rem 2.25rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border, #edf0f5);
+    background: linear-gradient(135deg, #e3f2fd, #e8f9fd);
+    border-bottom: 1px solid var(--border, #e3e6ea);
 }
 
-.at-section-last {
-    border-bottom: none;
-    margin-bottom: 0.5rem;
+.at-banner h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary, #1e6fe0);
 }
+
+.at-banner p {
+    margin: 0.35rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #6b7280);
+}
+
+.at-required {
+    color: var(--danger, #e53935);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Numbered section labels (01 PERSONAL INFORMATION, etc.)
+   ========================================================================== */
 
 .at-section-title {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    margin-bottom: 1.25rem;
+    margin: 1.75rem 0 1.1rem;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     color: var(--text-secondary, #6b7280);
+}
+
+.form-box form > .at-section-title:first-of-type {
+    margin-top: 0;
 }
 
 .at-step {
@@ -118,133 +303,14 @@
     flex-shrink: 0;
 }
 
-/* ---------- Fields / grid ---------- */
-.at-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem 1.5rem;
-}
-
-.at-field-full {
-    grid-column: 1 / -1;
-}
-
-.at-field {
-    display: flex;
-    flex-direction: column;
-}
-
-.at-label {
-    margin-bottom: 0.35rem;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-primary, #1f2937);
-    display: inline-block;
-}
-
-.at-required {
-    color: var(--danger, #e53935);
-    font-weight: 700;
-    margin-left: 2px;
-}
-
-.at-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    color: var(--text-primary, #1f2937);
-    background-color: var(--surface-alt, #f7f8fa);
-    border: 1.5px solid var(--border, #e3e6ea);
-    border-radius: 10px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-}
-
-.at-input::placeholder {
-    color: var(--text-muted, #9aa1ab);
-}
-
-.at-input:hover {
-    border-color: var(--border-hover, #c7cbd3);
-}
-
-.at-input:focus {
-    outline: none;
-    background-color: var(--surface, #ffffff);
-    border-color: var(--primary, #1e88e5);
-    box-shadow: 0 0 0 3px var(--primary-soft, rgba(30, 136, 229, 0.15));
-}
-
-.at-input.is-invalid {
-    border-color: var(--danger, #e53935);
-}
-
-/* ---------- Footer / actions ---------- */
-.at-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    padding-top: 1rem;
-}
-
-.at-btn {
-    padding: 0.7rem 1.6rem;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.05s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-}
-
-.at-btn-cancel {
-    color: var(--text-secondary, #6b7280);
-    background: var(--surface-alt, #f1f3f5);
-}
-
-.at-btn-cancel:hover {
-    background: var(--border, #e3e6ea);
-}
-
-.at-btn-submit {
-    color: #fff;
-    background: linear-gradient(135deg, var(--primary, #1e88e5), var(--primary-light, #29b6f6));
-    box-shadow: 0 6px 16px rgba(30, 136, 229, 0.35);
-}
-
-.at-btn-submit:hover {
-    box-shadow: 0 8px 20px rgba(30, 136, 229, 0.45);
-}
-
-.at-btn-submit:active,
-.at-btn-cancel:active {
-    transform: translateY(1px);
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 640px) {
-    .at-grid {
-        grid-template-columns: 1fr;
+/* Responsive */
+@media (max-width: 639px) {
+    .at-page-header {
+        margin: 1.25rem 1.25rem 1rem;
+        flex-wrap: wrap;
     }
 
-    .at-field {
-        grid-column: 1 / -1;
-    }
-
-    .at-form-card {
-        padding: 1.5rem 1.25rem 1rem;
-    }
-
-    .at-header {
-        justify-content: flex-start;
-    }
-
-    .at-back-btn {
-        order: 3;
-        width: 100%;
-        justify-content: center;
+    .at-banner {
+        padding: 1.5rem 1.25rem;
     }
 }
