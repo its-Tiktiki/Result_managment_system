@@ -1,5 +1,10 @@
 {% extends "base/base.html" %}
 {% block title%} View Teachers {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/view_teacher.css') }}">
+{% endblock %}
 {% block content %}
 
 <div class="container">
