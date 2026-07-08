@@ -81,23 +81,20 @@
     color: var(--danger, #e53935);
 }
 
-/* Two-column layout on wider screens, using field order to decide
-   which fields pair up (no markup/class changes needed). */
+/* Two-column layout on wider screens. Section titles and the
+   .full-width / .form-actions rows always span both columns;
+   everything else pairs up left/right in source order. */
 @media (min-width: 640px) {
     .form-box form {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 0 1.5rem;
+        align-items: start;
     }
 
-    /* teacher_id (1st field) spans full width */
-    .form-box form > .mb-3:nth-child(2) {
-        grid-column: 1 / -1;
-    }
-
-    /* username (8th field) and the submit row also span full width */
-    .form-box form > .mb-3:nth-child(9),
-    .form-box form > .mb-3:last-child {
+    .form-box form > .at-section-title,
+    .form-box .mb-3.full-width,
+    .form-box .form-actions {
         grid-column: 1 / -1;
     }
 }
